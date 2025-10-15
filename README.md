@@ -1,10 +1,6 @@
 comments with your own.
 -->
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/header.png" alt="Header Banner" />
-</p>
-
 <div id="header" align="center">
   <h1>
     👋 Hi there, I'm <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="30px"/>
