@@ -1,112 +1,103 @@
-with your own information.
--->
+# snk
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/header.png" alt="Header Banner" />
-</p>
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/platane/platane/main.yml?label=action&style=flat-square)](https://github.com/Platane/Platane/actions/workflows/main.yml)
+[![GitHub release](https://img.shields.io/github/release/platane/snk.svg?style=flat-square)](https://github.com/platane/snk/releases/latest)
+[![GitHub marketplace](https://img.shields.io/badge/marketplace-snake-blue?logo=github&style=flat-square)](https://github.com/marketplace/actions/generate-snake-game-from-github-contribution-grid)
+![type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
+![code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-<div align="center">
+Generates a snake game from a github user contributions graph
 
-# ### <p>
-  Welcome to my little corner on GitHub! I'm passionate about building useful products and always looking to learn new technologies.
-</p>
+<picture>
+  <source
+    media="(prefers-color-scheme: dark)"
+    srcset="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-dark.svg"
+  />
+  <source
+    media="(prefers-color-scheme: light)"
+    srcset="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake.svg"
+  />
+  <img
+    alt="github contribution grid snake animation"
+    src="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake.svg"
+  />
+</picture>
 
-</div>
+Pull a github user's contribution graph.
+Make it a snake Game, generate a snake path where the cells get eaten in an orderly fashion.
 
----
+Generate a [gif](https://github.com/Platane/snk/raw/output/github-contribution-grid-snake.gif) or [svg](https://github.com/Platane/snk/raw/output/github-contribution-grid-snake.svg) image. Colors can [be](https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-ocean.svg) [customized](https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-grey.svg).
 
-<table>
-  <tr>
-    <td valign="top" width="60%">
-      <h3>👨‍💻 About Me & Skills</h3>
-      <p>
-        - 🔭 I’m currently a <strong></strong> at <strong></strong>.
-        <br>
-        - 🌱 I’m focused on learning and improving my skills in <strong></strong>.
-        <br>
-        - 👯 I’m open to collaborating on open-source projects related to <strong></strong>.
-        <br>
-        - 💬 Ask me about <strong></strong>.
-        <br>
-        - 📫 How to reach me: <a href="mailto:"><strong></strong></a>
-        <br>
-        - ⚡ Fun fact: </p>
+Available as github action. It can automatically generate a new image each day. Which makes for great [github profile readme](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-profile/managing-your-profile-readme)
 
-      <h4>🛠️ Languages and Tools:</h4>
-      <p align="left">
-        <a href="https://skillicons.dev">
-          <img src="https://skillicons.dev/icons?i=js,ts,react,vue,nodejs,python,docker,figma,git,vscode" />
-        </a>
-      </p>
-    </td>
-    <td valign="top" width="40%">
-      <h3>📊 GitHub Stats</h3>
-      <p align="center">
-        <img src="https://github-readme-stats.vercel.app/api?username=your-username&show_icons=true&theme=dracula&count_private=true&include_all_commits=true" alt="GitHub Stats"/>
-        <br/><br/>
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=your-username&layout=compact&theme=dracula" alt="Top Languages"/>
-      </p>
-    </td>
-  </tr>
-</table>
+## Usage
 
----
+### **github action**
 
-### 🏆 GitHub Trophies
+```yaml
+- uses: Platane/snk@v3
+  with:
+    # github user name to read the contribution graph from (**required**)
+    # using action context var `github.repository_owner` or specified user
+    github_user_name: ${{ github.repository_owner }}
 
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=your-username&theme=dracula&column=7" alt="GitHub Trophies"/>
-</p>
+    # list of files to generate.
+    # one file per line. Each output can be customized with options as query string.
+    #
+    #  supported options:
+    #  - palette:     A preset of color, one of [github, github-dark, github-light]
+    #  - color_snake: Color of the snake
+    #  - color_dots:  Coma separated list of dots color.
+    #                 The first one is 0 contribution, then it goes from the low contribution to the highest.
+    #                 Exactly 5 colors are expected.
+    outputs: |
+      dist/github-snake.svg
+      dist/github-snake-dark.svg?palette=github-dark
+      dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+```
 
----
+[example with cron job](https://github.com/Platane/Platane/blob/master/.github/workflows/main.yml#L26-L33)
 
-### 🚀 Featured Projects
+### **svg**
 
-<table width="100%">
-  <tr>
-    <td width="50%" valign="top">
-      <a href=""><strong>🚀 Project Name 1</strong></a>
-      <br>
-      <em></em>
-    </td>
-    <td width="50%" valign="top">
-      <a href=""><strong>🚀 Project Name 2</strong></a>
-      <br>
-      <em></em>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href=""><strong>🚀 Project Name 3</strong></a>
-      <br>
-      <em></em>
-    </td>
-    <td width="50%" valign="top">
-      <a href=""><strong>🚀 Project Name 4</strong></a>
-      <br>
-      <em></em>
-    </td>
-  </tr>
-</table>
+If you are only interested in generating a svg (not a gif), consider using this faster action: `uses: Platane/snk/svg-only@v3`
 
----
+### **dark mode**
 
-### 📫 Get in Touch
+![dark mode](https://github.com/user-attachments/assets/6b900b64-0cdc-43f0-a234-e11dba8e786e)
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
-  </a>
-  &nbsp;
-  <a href="https://twitter.com/">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter"/>
-  </a>
-  &nbsp;
-  <a href="mailto:">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"/>
-  </a>
-</p>
+For **dark mode** support on github, use this [special syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#specifying-the-theme-an-image-is-shown-to) in your readme.
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=your-username&color=blueviolet&style=flat-square" alt="Profile views"/>
-</p>
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="github-snake.svg" />
+  <img alt="github-snake" src="github-snake.svg" />
+</picture>
+```
+
+### **interactive demo**
+
+<a href="https://platane.github.io/snk">
+  <img height="300px" src="https://user-images.githubusercontent.com/1659820/121798244-7c86d700-cc25-11eb-8c1c-b8e65556ac0d.gif" ></img>
+</a>
+
+[platane.github.io/snk](https://platane.github.io/snk)
+
+### **local**
+
+```
+npm install
+
+npm run dev:demo
+```
+
+## Implementation
+
+[solver algorithm](./packages/solver/README.md)
+
+## Contribution Policy
+
+This project does not accept pull request.
+
+Reporting or fixing issues is appreciated, but change in the API or implementation should be discussed in issue first and is likely not going be greenlighted.
